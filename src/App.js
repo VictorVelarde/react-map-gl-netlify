@@ -1,9 +1,8 @@
 import * as React from "react";
-// import "mapbox-gl/dist/mapbox-gl.css";
+import "mapbox-gl/dist/mapbox-gl.css";
 import ReactMapGL, { Source, Layer } from "react-map-gl";
 
-const MAPBOX_TOKEN =
-  "pk.eyJ1IjoidmljdG9yLWNhcnRvIiwiYSI6ImNrbGplemNhdTA2YXkyeHA1Nm5zamFtcXcifQ.aK84v-f374vlUeA6E_OSZg";
+const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 function App() {
   const [viewport, setViewport] = React.useState({
