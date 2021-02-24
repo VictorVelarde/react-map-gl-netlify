@@ -2,6 +2,12 @@ import * as React from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import ReactMapGL, { Source, Layer } from "react-map-gl";
 
+// See https://docs.mapbox.com/mapbox-gl-js/api/#transpiling-v2
+import mapboxgl from "mapbox-gl";
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from "worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker"; // Load worker code separately with worker-loader
+mapboxgl.workerClass = MapboxWorker; // Wire up loaded worker to be used
+
 const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 function App() {
