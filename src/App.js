@@ -1,24 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+// import "mapbox-gl/dist/mapbox-gl.css";
+import ReactMapGL, { Source, Layer } from "react-map-gl";
+
+const MAPBOX_TOKEN = "";
 
 function App() {
+  const [viewport, setViewport] = React.useState({
+    longitude: -3.81,
+    latitude: 43.45,
+    zoom: 11,
+  });
+
+  const geojson = {
+    type: "FeatureCollection",
+    features: [{ type: "Feature", geometry: { type: "Point", coordinates: [-3.81, 43.45] } }],
+  };
+
+  const layerStyle = {
+    id: "point",
+    type: "circle",
+    paint: {
+      "circle-radius": 10,
+      "circle-color": "#007cbf",
+    },
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ReactMapGL
+      {...viewport}
+      width="100%"
+      height="100vh"
+      onViewportChange={(viewport) => setViewport(viewport)}
+      mapboxApiAccessToken={MAPBOX_TOKEN}
+    >
+      <Source id="my-data" type="geojson" data={geojson}>
+        <Layer {...layerStyle} />
+      </Source>
+    </ReactMapGL>
   );
 }
 
